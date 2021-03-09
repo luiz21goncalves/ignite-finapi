@@ -147,4 +147,12 @@ app.delete('/account', verifyIfExistsAccont, (request, response) => {
   return response.status(200).json(customers)
 })
 
+app.get('/balance', verifyIfExistsAccont, (request, response) => {
+  const { customer } = request
+
+  const balance = getBalance(customer.statement)
+
+  return response.json(balance)
+})
+
 app.listen(3333, () => console.log('Server started on port 3333!'))
