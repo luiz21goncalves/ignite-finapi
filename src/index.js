@@ -50,4 +50,22 @@ app.get('/statement', verifyIfExistsAccont,(request, response) => {
   return response.json(customer.statement)
 })
 
+app.post('/deposit', verifyIfExistsAccont, (request, response) => {
+  const { description, amount } = request.body
+
+  const { customer } = request
+
+  const statementOperation = {
+    id: uuid(),
+    description,
+    amount,
+    created_at: new Date(),
+    type: 'credit'
+  }
+
+  customer.statement.push(statementOperation)
+
+  return response.status(201).json(statementOperation)
+})
+
 app.listen(3333, () => console.log('Server started on port 3333!'))
