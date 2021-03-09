@@ -123,4 +123,20 @@ app.get('/statement/date', verifyIfExistsAccont,(request, response) => {
   return response.json(statement)
 })
 
+app.put('/account', verifyIfExistsAccont, (request, response) => {
+  const { customer } = request
+
+  const { name } = request.body
+
+  Object.assign(customer, { name })
+
+  return response.send()
+})
+
+app.get('/account', verifyIfExistsAccont, (request, response) => {
+  const { customer } =  request
+
+  return response.json(customer)
+})
+
 app.listen(3333, () => console.log('Server started on port 3333!'))
